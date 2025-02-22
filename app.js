@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname + '/views'));
 app.use(cors());
 
 app.get('/', (req, res)=>{
-    res.render('index', {msg: 'E-Learning-Platform', title: 'Making Pancakes'});
+    res.render('login', { layout: null });
 });
 
 app.listen(app.get('port'), ()=>{
