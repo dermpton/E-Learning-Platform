@@ -34,9 +34,18 @@ app.get('/login',(req,res)=>{
 });
 
 
+app.get('/contact',(req, res) => {
+  res.render('contact', {layout: null });
+});
 
 
+app.get('/courses', (req, res) => {
+  res.render('course', { layout: null });
+});
 
+app.get('/about', (req, res) => {
+  res.render('about', { layout: null });
+});
 
 app.use((err, req, res, next)=>{
     console.error(err.stack);

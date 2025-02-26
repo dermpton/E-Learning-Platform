@@ -6,23 +6,31 @@
     <title>Nust E-Learning Platform</title>
     <link rel="stylesheet" href="./stylesheets/styles.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
 </head>
-<body>
+<body class="roboto-font">
     
 <!--Navigation bar -->
     <nav>
         <img src="./images/logo-fixed.png" alt = "">
         <div class="navigation">
             <ul>
+                <i id= "menu-close" class="fa-solid fa-circle-xmark"></i>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Courses</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/courses">Courses</a></li>
+                <li><a href="/contact">Contact</a></li>
                 <li><a href="/login">Login</a></li>
                 <li><a href="#">Sign Up</a></li>
             </ul>
+            <img id= "menu-btn" src="./images/menu.png" alt="">
+
         </div>
     </nav>
+
 
 <!-- ######### Home ########--> 
     <section id="home">
@@ -30,16 +38,290 @@
             <p>ENHANCE YOUR LEARNING EXPERIENCE WITH OUR INTERACTIVE COURSES.</p>
             <p>THINK IN OTHER TERMS</p>
             <div class="blue-btn">
-                <a href="#">Learner</a>
+                <a href="#">Start Learning</a>
             </div> 
-            <br><br>
-            <div class="blue-btn">
-                <a href="#">Instructor</a>
+    </section>  
+    
+<!-- ######### Features ########-->
+    <!-- <section id ="features">
+        <h1>Awesome Features</h1>
+        <p>Take a look at our various stunning Features</p>
+        <div class="fea-base">
+
+        </div>
+         
+    </section> -->
+
+<!-- ######### Courses ########-->
+
+    <section id="course">
+        <h1>Our Popular Courses</h1>
+        <p>Dive into other faculties to attain the skills you need</p>
+        <div class="course-box">
+            <div class="courses">
+                <img src="./images/1228490_9cb9.webp" alt="">
+                <div class="details">
+                    <span>Updated 03/03/2025</span>
+                    <h6>Java Beginners Course</h6>
+                    <div class="star">
+                        <!-- <i class="fas fa-star"></i> -->
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span>(29)</span>
+                    </div>
+                </div>
+                <div class="cost">
+                    $5.00
+                </div>
+            </div>
+            <div class="courses">
+                <img src="./images/forex.avif" alt="">
+                <div class="details">
+                    <span>Updated 03/03/2025</span>
+                    <h6>Forex Trading</h6>
+                    <div class="star">
+                        <!-- <i class="fas fa-star"></i> -->
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span>(39)</span>
+                    </div>
+                </div>
+                <div class="cost">
+                    $15.00
+                </div>
+            </div>
+            <div class="courses">
+                <img src="./images/python-programming-5120x2880-16102.jpg" alt="">
+                <div class="details">
+                    <span>Updated 03/03/2025</span>
+                    <h6>Intro to Python</h6>
+                    <div class="star">
+                        <!-- <i class="fas fa-star"></i> -->
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span>(65)</span>
+                    </div>
+                </div>
+                <div class="cost">
+                    $7.50
+                </div>
+            </div>
+            <div class="courses">
+                <img src="./images/robotics.webp" alt="">
+                <div class="details">
+                    <span>Updated 03/03/2025</span>
+                    <h6>Robotics</h6>
+                    <div class="star">
+                        <!-- <i class="fas fa-star"></i> -->
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span>(13)</span>
+                    </div>
+                </div>
+                <div class="cost">
+                    $6.00
+                </div>
+            </div>
+            <div class="courses">
+                <img src="./images/webdev.avif" alt="">
+                <div class="details">
+                    <span>Updated 03/03/2025</span>
+                    <h6>Web Development</h6>
+                    <div class="star">
+                        <!-- <i class="fas fa-star"></i> -->
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span>(189)</span>
+                    </div>
+                </div>
+                <div class="cost">
+                    $10.00
+                </div>
+            </div>
+            <div class="courses">
+                <img src="./images/accounting.avif" alt="">
+                <div class="details">
+                    <span>Updated 03/03/2025</span>
+                    <h6>Business Management</h6>
+                    <div class="star">
+                        <!-- <i class="fas fa-star"></i> -->
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <span>(79)</span>
+                    </div>
+                </div>
+                <div class="cost">
+                    $5.00
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ######### Registration ########-->
+    
+    <section id="registration">
+        <div class="reminder">
+            <p>Get 1 Online course for free</p>
+            <h1>Register to Get it</h1>
+            <div class="time">
+                <div class="date">
+                    18 <br> Days
+                </div>
+                <div class="date">
+                    23 <br> Hours
+                </div>
+                <div class="date">
+                    06 <br> Minutes
+                </div>
+                <div class="date">
+                    34 <br> seconds
+                </div>
+            </div>
+        </div>
+        <div class="form">
+            <h1>Create Free Account Now!</h1>
+            <input type="text" placeholder="Name" name="" id="">
+            <input type="text" placeholder="Email Address" name="" id="">
+            <input type="text" placeholder="Phone Number" name="" id="">
+            <div class="submit-btn">
+                <a href="#">Submit Form</a>
             </div> 
+        </div>
+    </section>
 
-    </section>   
 
+<!-- ######### Profile ########-->
 
+    <section id="experts">
+        <h1>Community Experts</h1>
+        <p>Here are some of the Universities Finest Lectures</p>
+        <div class="expert-box">
+
+             <div class="profile">
+                <img src="./images/pro1.webp" alt="">
+                <h6>Dr. Amelia Thompson</h6>
+                <p>Design Analysis and Algorithms</p>
+                <div class="pro-links">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-linkedin-in"></i>
+                </div>  
+            </div>
+            <div class="profile">
+                <img src="./images/pro2.webp" alt="">
+                <h6>Dr. Amelia Thompson</h6>
+                <p>Design Analysis and Algorithms</p>
+                <div class="pro-links">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-linkedin-in"></i>
+                </div>  
+            </div>
+            <div class="profile">
+                <img src="./images/pro3.webp" alt="">
+                <h6>Dr. Amelia Thompson</h6>
+                <p>Design Analysis and Algorithms</p>
+                <div class="pro-links">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-linkedin-in"></i>
+                </div>  
+            </div>
+            <div class="profile">
+                <img src="./images/pro4.webp" alt="">
+                <h6>Dr. Amelia Thompson</h6>
+                <p>Design Analysis and Algorithms</p>
+                <div class="pro-links">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-linkedin-in"></i>
+                </div>  
+            </div>
+        </div> 
+    </section>
+
+    <!-- ######### Footer ########-->
+     <footer>
+        <div class="footer-col">
+            <h3>Top Products</h3>
+            <li>Manage Reputation</li>
+            <li>Power Tools</li>
+            <li>Managed Websites</li>
+            <li>Marketing Services</li>
+        </div>
+        <div class="footer-col">
+            <h3>Power Tools</h3>
+            <li>Jobs</li>
+            <li>Marketing Services</li>
+            <li>Top Products</li>
+            <li>Manage Reputation</li>
+        </div>
+
+        <div class="footer-col">
+            <h3>Top Products</h3>
+            <li>Manage Reputation</li>
+            <li>Power Tools</li>
+            <li>Managed Websites</li>
+            <li>Marketing Services</li>
+        </div>
+
+        <div class="footer-col">
+            <h3>Guide</h3>
+            <li>Research</li>
+            <li>Experts</li>
+            <li>Managed Websites</li>
+            <li>Marketing Services</li>
+        </div>
+
+        <div class="footer-col">
+            <h3>Newsletter</h3>
+            <p>You can trust us, we only send promos</p>
+            <div class="subscribe">
+                <input type="text" placeholder="Your Email...">
+                <a href="#" class="subscribe-btn">SUBSCRIBE</a>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>Copyright @2025 All rights reserved | Made by Amagenga</p>
+            <div class="pro-links">
+                <i class="fab fa-facebook-f"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin-in"></i>
+            </div>
+        </div>
+
+     </footer>
+
+     <script>
+        $('#menu-close').click(function(){
+            $('nav .navigation ul').removeClass('active');
+        });
+        $('#menu-btn').click(function(){
+            $('nav .navigation ul').addClass('active');
+        });
+        
+     </script>
+
+ 
 
 </body>
 </html>

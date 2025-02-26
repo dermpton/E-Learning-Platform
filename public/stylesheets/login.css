@@ -1,3 +1,124 @@
-* {
-    background-color: red;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+.roboto-font {
+    font-family: "Roboto", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: 100;
 }
+    
+body {
+    box-sizing: border-box;
+    overflow: hidden;
+
+    background: #2b5876;
+    background: -webkit-linear-gradient(to right, #4e4376, #2b5876);
+    background: linear-gradient(to right, #4e4376, #2b5876);
+
+}
+
+.super-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    height: 70vh;
+    width: 60%;
+    display: flex;
+    flex-flow: row;
+    border-radius: 20px;    
+
+    background: #314755;
+    background: -webkit-linear-gradient(to right, #26a0da, #314755);  
+    background: linear-gradient(to right, #26a0da, #314755);
+
+}
+
+.image-display {
+
+    background-image: url('/images/sven-ciupka-qLXB1o8MwlM-unsplash.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px;
+    border-radius: 20px;
+    color: white;
+}
+
+.top-details {
+    display: flex;
+    justify-content: center;
+}
+
+.top-details-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+}
+
+.btw-btn {
+    border-style: none;
+    border-radius: 40px;
+    font-size: small;
+    display: flex;
+    background-color:#cccccc;
+
+}
+
+.btw-btn a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-left: 5px;
+    color: #ffffff;
+
+}
+
+.top-details div {
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+}
+
+.bottom-details {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.login-details {
+    border-radius: 20px;    
+    width: 50%;
+}
+
+/* Login Form */
+
+
+form div {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
+input {
+    width: 75%;
+}
+
+#login-btn {
+    background-color: black;
+    border-style: none;
+    color: white;
+    border-radius: 40px;
+    padding: 5px;
+}   

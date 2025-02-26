@@ -3,29 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
     <link rel="stylesheet" href="/stylesheets/login.css">
     <script defer src="/javascripts/login.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-</head>
-<body>
-    <main style="display: flex; justify-content: center;">
-        <div>
-            <form action="#" method="post">
-                <div style="display: flex; flex-flow: column;">
-                    <h1>Login Form</h1>
-                    <p><a href="">Sign Up</a></p>
-                    <label for="email">email</label>
-                    <input type="email" required id="email" name="email">
-                    <br>
-                    <label for="password">password</label>
-                    <input type="password" required id="password" name="password">
-                    <br>
-                    <input type="submit" value="Login">
-                </div>
+    
 
-            </form>
+    <title>Login</title>
+</head>
+<body class="roboto-font">
+    <main>
+        <div class="super-container">
+            <div class="container">
+                <div class="image-display">
+                    <div class="top-details">
+                        <div class="top-details-div">
+                            <span style="margin-left: 20px;">Add Logo</span>
+                            <span class="btw-btn"><a href="#">Back to website<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/></svg></a></span>
+                        </div>
+    
+                    </div>
+                    <div class="bottom-details">Welcome to NUST</div>
+                </div>
+    
+                <div class="login-details">
+                    <form action="#" method="post">
+                        <div>
+                            <h2>Login into your account</h2>
+                            <p>Don't have an account? <a href="">Sign Up</a></p>
+                            <label for="email"></label>
+                            <input type="email" required id="email" name="email" placeholder="Email">
+                            <br>
+                            <label for="password"></label>
+                            <input type="password" required id="password" name="password" placeholder="Password">
+                            <br>
+                            <input type="submit" value="Login" id="login-btn">
+                        </div>
+        
+                    </form>
+                </div>
+            </div>
         </div>
+
     </main>
 </body>
 </html>
