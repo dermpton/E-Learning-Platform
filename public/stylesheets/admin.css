@@ -132,8 +132,6 @@ li:hover:not(.each-student) {
     gap: 5px;
 }
 
-
-
 .teacher-details {
     display: flex;
     flex-direction: column;

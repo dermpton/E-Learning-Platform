@@ -121,3 +121,26 @@ document.getElementById('logout').addEventListener('click', async(e)=> {
 });
 
 // Fetch Logout asynchronously
+
+
+// Fetch Add asynchronously
+
+document.getElementById('add').addEventListener('click', async(e)=>{
+    e.preventDefault();
+
+    try {
+        const response = await fetch("http://localhost:3000/admin/add");
+        if (!response.ok){
+            alert(`Error: ${response.status}`);
+        } 
+
+        const data = await response.json();
+        const dynamicContent = document.getElementById('content');
+        dynamicContent.innerHTML = '';
+        dynamicContent.innerHTML = data;
+    } catch (err) {
+        console.error(`Error: ${err.message}`);
+    }
+});
+
+// Fetch Add asynchronously

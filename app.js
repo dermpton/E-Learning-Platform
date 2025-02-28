@@ -50,7 +50,7 @@ app.get('/admin', async(req, res)=> {
     feedback: "Average: 78%",
     adminSchool: "National University of Science & Technology",
   };
-  
+
   res.render('home',data);
 });
 

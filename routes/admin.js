@@ -89,4 +89,20 @@ router.get('/logout', (req,res)=>{
   });
 });
 
+
+router.get('/add', (req, res) => {
+  const data = {
+    layout: null,
+  };
+
+  res.render('add', data, (err, html)=>{
+    if (err) {
+      res.status(500).send(`Error: ${err.message}`);
+    } else {
+      res.json(html);
+    }
+  });
+
+});
+
 module.exports = router;
