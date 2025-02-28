@@ -1,0 +1,368 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Google Archives */
+
+.roboto-font {
+    font-family: "Roboto", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: 100;
+}
+
+/* Google Archives */
+
+body {
+    overflow: hidden;
+    color: #343434;
+}
+
+main {
+    display: flex;
+    justify-content: left;
+    flex-direction: row;
+    height: 90vh;
+}
+
+.dashboard-pane {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    flex-direction: column;
+    background-color: #343434;
+    color: white;
+    border-radius: 20px;
+}
+
+.activity-pane {
+    display: flex;
+    flex-grow: 1;
+    flex-flow: column nowrap;
+}
+
+.top-pane {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    height: max-content;
+    width: 100%;
+}
+
+.top-pane div {
+    display: flex;
+    align-items: center;
+}
+
+.top-pane div:not(:nth-child(2)) {
+    gap: 20px;
+}
+
+#search {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-style: none;
+    border: solid #343434 1px;
+    padding: 10px;
+    background-color: #343434;
+    color: white;
+
+}
+
+.search-icon {
+    border: solid #343434 1px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: #343434;
+    padding: 7px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
+    opacity: 0.5;
+}
+
+input:focus {
+    outline: none;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    gap: 20px;
+    position: relative;
+    top: -40px;
+}
+
+li {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 1px;
+}
+
+li:hover:not(.each-student) {
+    background-color: #758173;
+    cursor: pointer;
+}
+
+.bottom-pane {
+    display: flex;
+    flex-grow: 1;
+}
+
+.dynamic-views,
+#content {
+    display: flex;
+    justify-content: center;
+    /* border: solid; */
+    overflow-y: scroll;
+    align-items: center;
+    flex-direction: row wrap;
+    width: 100%;
+    /* height: 100%; */
+    height: 82.5vh;
+    gap: 5px;
+}
+
+
+
+.teacher-details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.teacher-details h6,
+.school-details h6 {
+    position: relative;
+    top: -40px;
+}
+
+.school-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-menu {
+    width: 100%;
+}
+
+.main-menu a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Views */
+.user-activity-overview,
+.course-management,
+.recent-activity {
+    border: solid black;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 20px;
+    width: 70%;
+    width: max-content;
+    padding: 5px;
+}
+
+.user-activity-overview:hover,
+.course-management:hover,
+.recent-activity:hover {
+    transition: all .2s ease-in-out;
+    transform: scale(1.05);
+}
+
+.all-students {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    justify-content: left;
+    /* border: solid red; */
+    width: 100%;
+    height: 100%;
+}
+
+.student-list ul {
+    /* border: solid yellow; */
+    display: flex;
+    width: 90%;
+}
+
+.student-list ul > li {
+    justify-content: space-between;
+}
+
+.student-filter {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+}
+
+.teacher {
+    /* border: solid red; */
+    display: flex;
+    flex-grow: 1;
+    flex-flow: row wrap;
+    gap: 5px;
+    margin-left: 10px;
+}
+
+.teacher-essentials,
+.course-essentials,
+.teacher-modifications {
+    border: solid black;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 20px;
+    width: 70%;
+    width: max-content;
+    padding: 5px;
+
+}
+
+.teacher-essentials:hover,
+.course-essentials:hover,
+.teacher-modifications:hover {
+    transition: all .2s ease-in-out;
+    transform: scale(1.01);
+}
+
+.teacher-essentials {
+    width: 70%;
+}
+
+.course-essentials {
+    width: 55%;
+}
+
+.teacher-modifications {
+    width: 40%;
+}
+
+.teacher-modifications a {
+    text-decoration: none;
+    color: white;
+    border: solid #343434;
+    padding: 2px;
+    border-radius: 20px;
+    background-color: #343434;
+    font-size: small;
+}
+
+.teacher-modifications a:hover {
+    cursor: pointer;
+
+}
+
+#calendar {
+    width: 100%;
+    height: inherit;
+}
+
+.settings {
+    /* border: solid red; */
+    display: flex;
+    height: inherit;
+    width: inherit;
+    gap: 10px;
+}
+
+.general-settings, 
+.security-settings {
+    border: solid black;
+    border-radius: 20px;
+    width: inherit;
+    margin-left: 5px;
+}
+
+.general-settings *, 
+.security-settings * {
+    margin-left: 5px;
+} 
+
+.logout {
+    border: solid #343434 1px;
+    display: flex;
+    padding: 5px;
+    border-radius: 20px;
+    flex-direction: column;
+    justify-content: center;   
+    
+    box-shadow: 10px 10px #343434;
+}
+
+.logout-warning {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-combo {
+    gap: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.yes-btn, .no-btn {
+    width: 100px;
+    border-radius: 20px;
+    border-style: none;
+    cursor: pointer;
+    color: white;
+    background-color: #343434;
+    padding: 5px;
+}
+
+.new-post {
+    display: flex;
+    flex-direction: column;
+    /* border: solid red; */
+    width: inherit;
+    height: inherit;
+}
+
+.new-assignment {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: solid #343434;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+#post-btn {
+    width: 100%;
+    border-radius: 20px;
+    border-style: none;
+    cursor: pointer;
+    color: white;
+    background-color: #343434;
+    padding: 5px;
+}
+
+.organize-workspace {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-flow: row wrap;
+}

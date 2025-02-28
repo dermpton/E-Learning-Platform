@@ -1,0 +1,22 @@
+<div class="teacher">
+    <div class="teacher-essentials">
+        <h1>Welcome, {{ teachersName }}</h1>
+        <p>{{ systemRole }}</p>
+        <p> {{ email }}</p>
+    </div>
+    <br>
+    <div class="course-essentials">
+        <h3>Course Overview</h3>
+        <p>Courses Created: {{ getCourseIndex }}</p>
+        <p>Students Enrolled: {{ studentTotal }}</p>
+        <p>Registration Date: {{ initialDate }}</p>
+        <p>Last Login: {{ lastLogout }}</p>
+    </div>
+    <br>
+    <div class="teacher-modifications">
+        <h3>Actions</h3>
+        <p><a href="#">View Profile</a></p>
+        <p><a href="#">View Courses</a></p>
+        <p><a href="#">Generate Report</a></p>
+    </div>
+</div>   

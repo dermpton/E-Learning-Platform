@@ -5,7 +5,7 @@ const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose'); 
 const { title } = require('process');
-const handlebars = require('express-handlebars').create({defaultLayout: 'main'});
+const handlebars = require('express-handlebars').create({defaultLayout: 'admin'});
  
 app.use(express.json());
 app.engine('handlebars', handlebars.engine);
@@ -19,8 +19,9 @@ app.use(cors({
   allowedHeaders: ['Content-Type'],
 }));
 
-
+// Routes
 const loginRouter = require('./routes/login');
+const adminRouter = require('./routes/admin');
 
 app.get('/', (req, res)=>{
     res.render('landing-page', { layout: null });
@@ -34,10 +35,28 @@ app.get('/login',(req,res)=>{
 });
 
 
+app.use('/admin',adminRouter);
+
+app.get('/admin', async(req, res)=> {
+  const data = {
+    teachersName: "John Doe",
+    systemRole: "Lecturer",
+    studentTotal: 130,
+    activeLearnerTotal: 72,
+    courseName: "Software Project Management",
+    addCourse: "Web Development",
+    getStudents: 130,
+    announcements: "Bob said: 'I forgot to submit the assignment' ",
+    feedback: "Average: 78%",
+    adminSchool: "National University of Science & Technology",
+  };
+  
+  res.render('home',data);
+});
+
 app.get('/contact',(req, res) => {
   res.render('contact', {layout: null });
 });
-
 
 app.get('/courses', (req, res) => {
   res.render('course', { layout: null });
