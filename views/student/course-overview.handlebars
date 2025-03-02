@@ -1,8 +1,10 @@
+{{!-- Fetch what the user may be registered for in their course selection  --}}
 
-{{#each course }}
+
+{{!-- {{#each course }} --}}
     <div class="organize-course-template">
     <div class="course-template">
-        <a href=""><h6>{{ courseName}}</h6></a>
+        <a href="/student/course/:course_id"><h6>{{ courseName}}</h6></a>
         <p>Taken by {{ teacherName }}</p>
         <form action="#" method="get">
             <label for="leave"></label>
@@ -10,6 +12,6 @@
         </form>   
     </div>
 </div>
-{{/each}}
+{{!-- {{/each }} --}}
 
 {{!-- Use the each to generate multiple instances --}}
