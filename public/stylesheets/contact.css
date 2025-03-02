@@ -594,3 +594,84 @@ footer .copyright .pro-links i:hover{
 }
 
 
+/* ####### About Page ########### */
+
+#aboutNust-home{
+    background-image: linear-gradient(rgba(9,5,54,0.3),rgba(5,4,46,0.7)),url("/images/nust-central-plaza---january33.jpg");
+    width: 100%;
+    height: 60vh;
+    background-size:cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 40px;
+
+}
+
+#aboutNust-home h2{
+    color :white;
+}
+
+#about-container{
+    display: flex;
+    align-items: center;
+    padding: 8vw 8vw 2vw 8vw;
+
+}
+
+#about-container .about-img{
+    width:  60%;
+}
+#about-container .about-img img{
+    width:  110%;
+    
+}
+
+#about-container .about-text{
+    width:  40%;
+    padding: 60px;
+}
+
+#about-container .about-text h2{
+    color: #293038;
+    padding-bottom: 15px;
+}
+#about-container .about-text p{
+    color: #686F7A;
+    font-weight: 300;
+}
+
+#about-container .about-text .about-fe img{
+    width: 50px;
+    background-size: cover;
+    background-position: center;
+    margin-right: 20px;
+}
+
+#about-container .about-text .about-fe .fe-text{
+    width: 90%;
+}
+#about-container .about-text .about-fe .fe-text h5{
+    font-size: 16px;
+    color: #29303B;
+} 
+
+#trust{
+    text-align: center;
+    padding: 8vw;
+
+}
+#trust .trust-img{
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#trust .trust-img img{
+    width: 90px;
+    height: auto;
+}
