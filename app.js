@@ -3,7 +3,7 @@ const dotenv = require('dotenv').config();
 const app = express();
 const cors = require('cors');
 const path = require('path');
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 const { title } = require('process');
 const handlebars = require('express-handlebars').create({defaultLayout: 'admin'});
  
@@ -22,6 +22,7 @@ app.use(cors({
 // Routes
 const loginRouter = require('./routes/login');
 const adminRouter = require('./routes/admin');
+const studentRouter = require('./routes/student');
 
 app.get('/', (req, res)=>{
     res.render('landing-page', { layout: null });
@@ -36,6 +37,7 @@ app.get('/login',(req,res)=>{
 
 
 app.use('/admin',adminRouter);
+
 
 app.get('/admin', async(req, res)=> {
   const data = {
@@ -53,6 +55,39 @@ app.get('/admin', async(req, res)=> {
 
   res.render('home',data);
 });
+
+app.use('/student',studentRouter);
+
+
+
+app.get('/student', async(req, res) =>{
+
+  // const data = {
+  //     layout: null,
+  // };
+
+  // if (req.xhr || req.headers.accept.indexOf('json') > -1){
+  //   res.render('student-dash', data, (err, html) => {
+  //     if (err){
+  //       res.status(500).send(`Error: ${err.message}`);
+  //     } else {
+  //       res.json(html);
+  //     }
+  //   });
+  // } 
+
+
+  const data = {
+    studentName: "John Doe",
+    courseName: "Software Project Management",
+    layout: 'student-dash',
+  };
+
+  res.render("student/initial",data);
+
+});
+
+
 
 app.get('/contact',(req, res) => {
   res.render('contact', {layout: null });

@@ -1,0 +1,26 @@
+<div class="push-details">
+    <div class="assignment-details">
+        <h2>{{ title }}</h2>
+        <p>{{ teacherName }} - {{ dateIssued }}</p>
+        <div>
+            <p> {{ gradeTotal }}</p>
+            <p> {{ dueDate }}</p>
+        </div>
+        <div>
+            <p>{{ pushDescription }}</p> 
+            <!-- Find a way to put the teachers assignment -->
+        </div>
+    </div>
+
+    <div class="submit-assignment">
+        <h3>Submit Assignment</h3>
+        <div>
+            <form action="#" enctype="multipart/form-data" method="post">
+                <label for="studentUpload"></label>
+                <input type="file" name="studentUpload" placeholder="">
+                <input type="button" value="Submit" class="submit-btn">
+            </form>
+        </div>
+    </div>
+
+</div>

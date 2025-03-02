@@ -1,0 +1,15 @@
+
+{{#each course }}
+    <div class="organize-course-template">
+    <div class="course-template">
+        <a href=""><h6>{{ courseName}}</h6></a>
+        <p>Taken by {{ teacherName }}</p>
+        <form action="#" method="get">
+            <label for="leave"></label>
+            <input type="button" name="leave" value="Leave" class="leave-btn">
+        </form>   
+    </div>
+</div>
+{{/each}}
+
+{{!-- Use the each to generate multiple instances --}}

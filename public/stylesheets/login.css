@@ -12,11 +12,8 @@
 body {
     box-sizing: border-box;
     overflow: hidden;
-
-    background: #2b5876;
-    background: -webkit-linear-gradient(to right, #4e4376, #2b5876);
-    background: linear-gradient(to right, #4e4376, #2b5876);
-
+    background-color: #131314;
+    color: white;
 }
 
 .super-container {
@@ -31,26 +28,19 @@ body {
     width: 60%;
     display: flex;
     flex-flow: row;
-    border-radius: 20px;    
-
-    background: #314755;
-    background: -webkit-linear-gradient(to right, #26a0da, #314755);  
-    background: linear-gradient(to right, #26a0da, #314755);
-
+    border-radius: 20px;
+    background-color: #1e1f20;
 }
 
 .image-display {
-
-    background-image: url('/images/sven-ciupka-qLXB1o8MwlM-unsplash.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: #2e2f2f;
     width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 10px;
     border-radius: 20px;
-    color: white;
+    color: #c4c7c5;
 }
 
 .top-details {
@@ -69,7 +59,7 @@ body {
     border-radius: 40px;
     font-size: small;
     display: flex;
-    background-color:#cccccc;
+    background-color:#2e2f2f;
 
 }
 
@@ -78,7 +68,7 @@ body {
     align-items: center;
     text-decoration: none;
     margin-left: 5px;
-    color: #ffffff;
+    color: #c4c7c5;
 
 }
 
@@ -93,7 +83,7 @@ body {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-    color: white;
+    color: #c4c7c5;
 }
 
 .login-details {
@@ -116,9 +106,9 @@ input {
 }
 
 #login-btn {
-    background-color: black;
+    background-color: #2e2f2f;
     border-style: none;
-    color: white;
+    color: #c4c7c5;
     border-radius: 40px;
     padding: 5px;
 }   

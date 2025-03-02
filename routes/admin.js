@@ -28,7 +28,7 @@ router.get('/students', async(req,res)=>{
     }
 })});
 
-router.get('/teacher', (req, res)=> {
+router.get('/teacher', async(req, res)=> {
   const data = {
     teachersName: "John Doe",
     email: "johndoe@gmail.com",
@@ -51,7 +51,7 @@ router.get('/teacher', (req, res)=> {
     }
 })});
 
-router.get('/calendar', (req, res)=>{
+router.get('/calendar', async(req, res)=>{
   res.render('calendar', {layout: null}, (err, html)=>{
     if (err){
       res.status(500).send(`Error: ${err.message}`);
@@ -61,7 +61,7 @@ router.get('/calendar', (req, res)=>{
   });
 });
 
-router.get('/settings', (req, res)=>{
+router.get('/settings', async(req, res)=>{
   const data = {
     layout: null,
   };
@@ -90,7 +90,7 @@ router.get('/logout', (req,res)=>{
 });
 
 
-router.get('/add', (req, res) => {
+router.get('/add', async(req, res) => {
   const data = {
     layout: null,
   };

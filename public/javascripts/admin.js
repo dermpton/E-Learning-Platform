@@ -109,6 +109,7 @@ document.getElementById('logout').addEventListener('click', async(e)=> {
         const response = await fetch("http://localhost:3000/admin/logout");
         if (!response.ok) {
             alert(`Error: ${response.status}`);
+            return;
         }
 
         const data = await response.json();
@@ -132,6 +133,7 @@ document.getElementById('add').addEventListener('click', async(e)=>{
         const response = await fetch("http://localhost:3000/admin/add");
         if (!response.ok){
             alert(`Error: ${response.status}`);
+            return;
         } 
 
         const data = await response.json();
