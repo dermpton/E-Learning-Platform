@@ -1,25 +1,54 @@
-document.querySelector('form').addEventListener('submit', login);
+// Frontend
 
-async function login(event) {
-    event.preventDefault();
+const container = document.querySelector('.container');
+const registerBtn = document.querySelector('.register-btn');
+const loginBtn = document.querySelector('.login-btn');
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+registerBtn.addEventListener('click', () => {
+    container.classList.add('active');
+});
 
-    try {
-        const response = await fetch('http://localhost:3000/api/login', {
+loginBtn.addEventListener('click', () => {
+    container.classList.remove('active');
+});
+
+
+// Backend 
+
+const fetchAndEnter = async(formButton, route) => {
+   document.getElementById(formButton).addEventListener('click', async(e) =>{
+      e.preventDefault();
+
+      const email = document.getElementById('email')?.value || '';
+      const usernameField = document.getElementById('username');
+      const username = usernameField ? usernameField.value : null;
+      const password = document.getElementById('password')?.value || null;
+
+      const clientData = { email,password };
+      if (username) clientData.username = username;
+
+      try {
+         const response = await fetch(`http://localhost:3000/${route}`, {
             method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({email, password}),
-        });
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(clientData),
+         });
 
-        if (!response.ok) throw new Error(`Error Message: ${response.status}`);
-        const json = await response.json();
-        console.log('Success', json);
-        alert("Login: Success");
+         if (!response.ok) throw new Error(`Error Message: ${response.status}`);
 
-    } catch(err){
-        console.log(`Error: ${err.message}`);
-        alert("Login: Failed");
-    }
-}
+         const data = await response.json();
+         alert(`Login Successful, Welcome ${clientData.username}`);
+         console.log('Success', data);
+
+      } catch (err) {
+         console.error(`Error: ${err.message}`);
+         alert(`Login Failed`);
+      }
+
+   });
+};
+
+document.addEventListener('DOMContentLoaded', ()=>{
+   fetchAndEnter('register-form-btn','signup');
+   fetchAndEnter('login-form-btn','login');
+});

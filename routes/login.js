@@ -27,4 +27,23 @@ router.post('/login', async(req, res)=>{
     
 });
 
+router.post('/login/signup/:systemRole', async(req, res) => {
+    const status = req.params.status; // trying to find out if they are an instructor or not 
+    const { email, password, systemRole, } = req.body;
+    const hashedPassword = bcrypt.hash(password);
+
+    try {
+        const saveUser = await newUser.save();
+        res.status(201).send(`Successful entry`);
+        if (!Teacher.findOne({systemRole})) {
+            res.redirect('/student');
+        } else {
+            res.redirect('/admin');
+        }
+    } catch (err) {
+        console.error(`Error: ${err.message}`);
+    }
+    
+});
+
 module.exports = router;

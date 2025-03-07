@@ -80,7 +80,7 @@ document.getElementById('add').addEventListener('click', async(e)=> {
 
 // Enter each course stream 
 
-fetch(`http://localhost:3000/student/course/${course_id}`)
+fetch(`http://localhost:3000/student/course/${course_code}`)
 .then(data => {
   return data.json();
 })

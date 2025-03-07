@@ -2,10 +2,16 @@ const express = require('express');
 const path = require('path');
 const router = express.Router();
 const app = express();
+const mongoose = require('mongoose');
+const connectedDatabase = require('../lib/db');
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname + '/public')));
 app.set('views', path.join(__dirname + '/views'));
+
+
+
+
 
 router.get('/students', async(req,res)=>{
   const data = {

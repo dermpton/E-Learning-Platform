@@ -2,10 +2,18 @@ const express = require('express');
 const router = express.Router();
 const app = express();
 const path = require('path');
-
+const mongoose = require('mongoose');
+const connectedDatabase = require('../lib/db');
 app.use(express.json());
 app.use(express.static(path.join(__dirname + '/public')));
 app.set('views', path.join(__dirname + '/views'));
+
+
+
+const Student = require('../lib/models/student');
+const Course = require('../lib/models/course');
+const Teacher = require('../lib/models/course');
+
 
 router.get('/home', async(req, res) => {
     
@@ -62,9 +70,11 @@ router.get('/add', async(req,res)=>{
   })
 });
 
-router.get('/course/:course_id', async(req, res) => {
-  const courseId = req.params.course_id;
+router.get('/course/:course_code', async(req, res) => {
+  const courseCode = req.params.course_code;
   // Perform some db related logic
+
+   
 
   const data = {
     // the db related stuff

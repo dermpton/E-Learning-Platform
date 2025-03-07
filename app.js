@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
+const connectedDatabase = require('./lib/db'); //immediate execution
 const { title } = require('process');
 const handlebars = require('express-handlebars').create({defaultLayout: 'admin'});
  
@@ -19,27 +20,33 @@ app.use(cors({
   allowedHeaders: ['Content-Type'],
 }));
 
-// Routes
-const loginRouter = require('./routes/login');
-const adminRouter = require('./routes/admin');
-const studentRouter = require('./routes/student');
+const Student = require('./lib/models/student');
+const Course = require('./lib/models/course');
+const Teacher = require('./lib/models/course');
+
+// testcase entries
+const testData = require('./lib/testcases');
+testData();
 
 app.get('/', (req, res)=>{
     res.render('landing-page', { layout: null });
 });
 
 
-app.use('/api',loginRouter);
+app.use('/api', require('./routes/login'));
 
 app.get('/login',(req,res)=>{
   res.render('login',{layout: null });
 });
 
+app.get('/signup',(req,res)=>{
+  res.render('login',{layout: null });
+});
 
-app.use('/admin',adminRouter);
+app.use('/admin', require('./routes/admin'));
 
 
-app.get('/admin', async(req, res)=> {
+app.get('/admin/:email', async(req, res)=> {
   const data = {
     teachersName: "John Doe",
     systemRole: "Lecturer",
@@ -53,29 +60,14 @@ app.get('/admin', async(req, res)=> {
     adminSchool: "National University of Science & Technology",
   };
 
-  res.render('home',data);
+  res.render('home', data);
 });
 
-app.use('/student',studentRouter);
+app.use('/student', require('./routes/student'));
 
 
 
 app.get('/student', async(req, res) =>{
-
-  // const data = {
-  //     layout: null,
-  // };
-
-  // if (req.xhr || req.headers.accept.indexOf('json') > -1){
-  //   res.render('student-dash', data, (err, html) => {
-  //     if (err){
-  //       res.status(500).send(`Error: ${err.message}`);
-  //     } else {
-  //       res.json(html);
-  //     }
-  //   });
-  // } 
-
 
   const data = {
     studentName: "John Doe",
@@ -86,7 +78,6 @@ app.get('/student', async(req, res) =>{
   res.render("student/initial",data);
 
 });
-
 
 
 app.get('/contact',(req, res) => {
