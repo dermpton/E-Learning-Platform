@@ -11,7 +11,13 @@ app.set('views', path.join(__dirname + '/views'));
 
 
 
+router.get('/login', async(req, res)=>{
+  res.render('login', { layout: null });
+});
 
+router.get('signup', async(req, res)=>{
+  res.render('login', { layout: null });
+});
 
 router.get('/students', async(req,res)=>{
   const data = {
@@ -109,6 +115,15 @@ router.get('/add', async(req, res) => {
     }
   });
 
+});
+
+router.use((err, req, res, next)=>{
+  console.error(err.stack);
+  res.status(500).render('error', {message: err.message });
+});
+
+router.use((req, res)=>{
+res.status(404).render('error');
 });
 
 module.exports = router;

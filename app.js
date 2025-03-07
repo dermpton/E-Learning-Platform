@@ -32,19 +32,7 @@ app.get('/', (req, res)=>{
     res.render('landing-page', { layout: null });
 });
 
-
-app.use('/api', require('./routes/login'));
-
-app.get('/login',(req,res)=>{
-  res.render('login',{layout: null });
-});
-
-app.get('/signup',(req,res)=>{
-  res.render('login',{layout: null });
-});
-
 app.use('/admin', require('./routes/admin'));
-
 
 app.get('/admin/:email', async(req, res)=> {
   const data = {
@@ -64,7 +52,6 @@ app.get('/admin/:email', async(req, res)=> {
 });
 
 app.use('/student', require('./routes/student'));
-
 
 
 app.get('/student', async(req, res) =>{
@@ -99,7 +86,7 @@ app.use((err, req, res, next)=>{
 
 app.use((req, res)=>{
   res.status(404).render('error');
-})
+});
 
 app.listen(3000, ()=>{
   console.log(`Server started on http://localhost:3000 press ctrl + c to exit`);

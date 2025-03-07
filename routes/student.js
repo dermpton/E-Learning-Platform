@@ -15,6 +15,14 @@ const Course = require('../lib/models/course');
 const Teacher = require('../lib/models/course');
 
 
+router.get('/login', async(req, res)=>{
+  res.render('student/student-login', { layout: null });
+});
+
+router.get('/signup', async(req, res)=>{
+  res.render('student/student-login', { layout: null })
+});
+
 router.get('/home', async(req, res) => {
     
     const data = {
@@ -89,6 +97,15 @@ router.get('/course/:course_code', async(req, res) => {
     }
   })
 
+});
+
+router.use((err, req, res, next)=>{
+  console.error(err.stack);
+  res.status(500).render('error', {message: err.message });
+});
+
+router.use((req, res)=>{
+res.status(404).render('error');
 });
 
 module.exports = router;
