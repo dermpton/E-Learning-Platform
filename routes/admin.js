@@ -4,12 +4,16 @@ const router = express.Router();
 const app = express();
 const mongoose = require('mongoose');
 const connectedDatabase = require('../lib/db');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname + '/public')));
 app.set('views', path.join(__dirname + '/views'));
 
-
+// // testcase entries
+// const testData = require('../lib/testcases');
+// testData();
 
 router.get('/login', async(req, res)=>{
   res.render('login', { layout: null });
@@ -17,6 +21,24 @@ router.get('/login', async(req, res)=>{
 
 router.get('signup', async(req, res)=>{
   res.render('login', { layout: null });
+});
+
+// From here-forth any personnel without their login details is prohibited
+router.get('/admin/:email', async(req, res)=> {
+  const data = {
+    teachersName: "John Doe",
+    systemRole: "Lecturer",
+    studentTotal: 130,
+    activeLearnerTotal: 72,
+    courseName: "Software Project Management",
+    addCourse: "Web Development",
+    getStudents: 130,
+    announcements: "Bob said: 'I forgot to submit the assignment' ",
+    feedback: "Average: 78%",
+    adminSchool: "National University of Science & Technology",
+  };
+
+  res.render('home', data);
 });
 
 router.get('/students', async(req,res)=>{

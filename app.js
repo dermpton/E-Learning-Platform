@@ -33,6 +33,7 @@ app.get('/', (req, res)=>{
 });
 
 app.use('/admin', require('./routes/admin'));
+app.use('/student', require('./routes/student'));
 
 app.get('/admin/:email', async(req, res)=> {
   const data = {
@@ -51,9 +52,6 @@ app.get('/admin/:email', async(req, res)=> {
   res.render('home', data);
 });
 
-app.use('/student', require('./routes/student'));
-
-
 app.get('/student', async(req, res) =>{
 
   const data = {
@@ -65,7 +63,6 @@ app.get('/student', async(req, res) =>{
   res.render("student/initial",data);
 
 });
-
 
 app.get('/contact',(req, res) => {
   res.render('contact', {layout: null });

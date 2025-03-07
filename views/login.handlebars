@@ -12,7 +12,7 @@
 <body class="roboto-font">
     <div class="container">
         <div class="form-box login">
-            <form action="http://localhost:3000/login" method="post" id="login-form">
+            <form action="http://localhost:3000/admin/login" method="post" id="login-form">
                 <h1>Login</h1>
                 <div class="input-box">
                     <input type="text" placeholder="Username" required id="username">
@@ -39,7 +39,7 @@
         </div>
 
         <div class="form-box register">
-            <form action="http://localhost:3000/signup" method="post" id="register-form">
+            <form action="http://localhost:3000/admin/signup" method="post" id="register-form">
                 <h1>Register</h1>
                 <div class="input-box">
                     <input type="text" placeholder="Username" required id="username">
@@ -51,7 +51,7 @@
                 </div>
                 <div class="input-box">
                     <input type="password" placeholder="password" required id="password">
-                    <box-icon name='lock' type='solid' ></box-icon>
+                    <box-icon name='lock' type='solid'></box-icon>
                 </div>
                 <button type="submit" class="btn" id="register-form-btn">Register</button>
                 <p>or login with social platforms</p>

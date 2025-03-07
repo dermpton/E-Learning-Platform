@@ -15,7 +15,7 @@ loginBtn.addEventListener('click', () => {
 
 // Backend 
 
-const fetchAndEnter = async(formButton, route) => {
+const fetchAndEnter = async(formButton, url) => {
    document.getElementById(formButton).addEventListener('click', async(e) =>{
       e.preventDefault();
 
@@ -28,7 +28,7 @@ const fetchAndEnter = async(formButton, route) => {
       if (username) clientData.username = username;
 
       try {
-         const response = await fetch(`http://localhost:3000/${route}`, {
+         const response = await fetch(url, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(clientData),
@@ -49,6 +49,6 @@ const fetchAndEnter = async(formButton, route) => {
 };
 
 document.addEventListener('DOMContentLoaded', ()=>{
-   fetchAndEnter('register-form-btn','signup');
-   fetchAndEnter('login-form-btn','login');
+   fetchAndEnter('register-form-btn','http://localhost:3000/admin/signup');
+   fetchAndEnter('login-form-btn','http://localhost:3000/admin/login');
 });

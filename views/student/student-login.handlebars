@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/login.css">
-    <script defer src="/javascripts/login.js"></script>
+    {{!-- <script defer src="/javascripts/login.js"></script> --}}
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
     <title>Student Login</title>
@@ -12,7 +12,7 @@
 <body class="roboto-font">
     <div class="container">
         <div class="form-box login">
-            <form action="http://localhost:3000/login" method="post" id="login-form">
+            <form action="http://localhost:3000/student/login" method="post" id="login-form">
                 <h1>Login</h1>
                 <div class="input-box">
                     <input type="text" placeholder="Username" required id="username">
@@ -39,7 +39,7 @@
         </div>
 
         <div class="form-box register">
-            <form action="http://localhost:3000/signup" method="post" id="register-form">
+            <form action="http://localhost:3000/student/signup" method="post" id="register-form">
                 <h1>Register</h1>
                 <div class="input-box">
                     <input type="text" placeholder="Username" required id="username">
@@ -78,5 +78,60 @@
         </div>
         
     </div>
+    <script>
+// Frontend
+
+const container = document.querySelector('.container');
+const registerBtn = document.querySelector('.register-btn');
+const loginBtn = document.querySelector('.login-btn');
+
+registerBtn.addEventListener('click', () => {
+    container.classList.add('active');
+});
+
+loginBtn.addEventListener('click', () => {
+    container.classList.remove('active');
+});
+
+// Backend
+
+const fetchAndEnter = async(formButton, url) => {
+   document.getElementById(formButton).addEventListener('click', async(e) =>{
+      e.preventDefault();
+
+      const email = document.getElementById('email')?.value || '';
+      const usernameField = document.getElementById('username');
+      const username = usernameField ? usernameField.value : null;
+      const password = document.getElementById('password')?.value || null;
+
+      const clientData = { email, password };
+      if (username) clientData.username = username;
+
+      try {
+         const response = await fetch(url, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(clientData),
+         });
+
+        if (!response.ok) throw new Error(`Error Message: ${response.status}`);
+
+         const data = await response.json();
+         //alert(`Login Successful, Welcome To NUST`);
+         console.log('Success', data);
+         window.location.href = data.redirectTo;
+      } catch (err) {
+         console.error(`Error: ${err.message}`);
+         alert(`Login Failed`);
+      }
+
+   });
+};
+
+document.addEventListener('DOMContentLoaded', ()=>{
+   fetchAndEnter('register-form-btn','http://localhost:3000/student/signup');
+   fetchAndEnter('login-form-btn','http://localhost:3000/student/login');
+});
+    </script>
 </body>
 </html>
