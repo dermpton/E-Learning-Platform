@@ -123,6 +123,7 @@ form{
     width: 95%;
     height: 48px;
     background: #7494ec;
+    /* background: red; */
     -o-border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
@@ -134,6 +135,10 @@ form{
     font-size: 16px;
     color: #fff;
     margin-bottom: 20px;
+}
+
+.student-btn {
+    background: red;
 }
 
 .container p {
@@ -185,6 +190,7 @@ form{
     width: 300%;
     height: 100%;
     background: #7494ec;
+    /* background: red; */
     /* border: 2px solid red; */
     -o-border-radius: 150px;
     -webkit-border-radius: 150px;
@@ -197,6 +203,10 @@ form{
     -moz-transition: 1.8s ease-in-out;
     -ms-transition: 1.8s ease-in-out;
     transition: 1.8s ease-in-out;
+}
+
+.student-toggle-box::before {
+    background: red;
 }
 
 .container.active .toggle-box::before{
