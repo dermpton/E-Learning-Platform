@@ -4,11 +4,12 @@ const app = express();
 const cors = require('cors');
 const path = require('path');
 const mongoose = require('mongoose');
-const connectedDatabase = require('./lib/db'); //immediate execution
-const { title } = require('process');
+const cookieParser = require('cookie-parser');
+const connectedDB = require('./lib/db');
 const handlebars = require('express-handlebars').create({defaultLayout: 'admin'});
  
 app.use(express.json());
+app.use(cookieParser());
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3000);
@@ -16,17 +17,18 @@ app.use(express.static(path.join(__dirname + '/public')));
 app.set('views', path.join(__dirname + '/views'));
 app.use(cors({
   origin: "http://localhost:3000",
-  methods: ['GET','POST'],
-  allowedHeaders: ['Content-Type'],
+  methods: ['GET','POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 }));
 
 const Student = require('./lib/models/student');
 const Course = require('./lib/models/course');
-const Teacher = require('./lib/models/course');
+const Teacher = require('./lib/models/teacher');
 
 // testcase entries
 const testData = require('./lib/testcases');
-testData();
+// testData();
 
 app.get('/', (req, res)=>{
     res.render('landing-page', { layout: null });
@@ -85,6 +87,19 @@ app.use((req, res)=>{
   res.status(404).render('error');
 });
 
-app.listen(3000, ()=>{
-  console.log(`Server started on http://localhost:3000 press ctrl + c to exit`);
-});
+const startServer = async() =>{
+  await connectedDB().then(()=>{
+    console.log("Database connected successfully");
+  });
+  testData();
+
+  // const PORT = app.get('port');
+  app.listen(3000, ()=>{
+    console.log(`Server started on http://localhost:3000 press ctrl + c to exit`);
+  });
+
+};
+
+startServer();
+
+

@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
                     <box-icon name='user'></box-icon>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="password" required id="password">
+                    <input type="password" placeholder="Password" required id="password">
                     <box-icon name='lock' type='solid' ></box-icon>
                 </div>
                 <div class="forgot-link">
@@ -50,7 +50,7 @@
                     <box-icon name='user'></box-icon>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="password" required id="password">
+                    <input type="password" placeholder="Password" required id="password">
                     <box-icon name='lock' type='solid' ></box-icon>
                 </div>
                 <button type="submit" class="btn student-btn" id="register-form-btn">Register</button>
@@ -78,7 +78,7 @@
         </div>
         
     </div>
-    <script>
+    <script defer>
 // Frontend
 
 const container = document.querySelector('.container');
@@ -99,19 +99,33 @@ const fetchAndEnter = async(formButton, url) => {
    document.getElementById(formButton).addEventListener('click', async(e) =>{
       e.preventDefault();
 
-      const email = document.getElementById('email')?.value || '';
-      const usernameField = document.getElementById('username');
-      const username = usernameField ? usernameField.value : null;
-      const password = document.getElementById('password')?.value || null;
+      //const email = document.getElementById('email')?.value || '';
+      //const usernameField = document.getElementById('username');
+      //const username = usernameField ? usernameField.value : null;
+      //const password = document.getElementById('password')?.value || null;
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
 
-      const clientData = { email, password };
-      if (username) clientData.username = username;
+      const clientData = { username, password };
+      //const clientData = { email, password };
+      //if (username) clientData.username = username;
 
+      if (url === 'http://localhost:3000/student/signup') {
+        const email = document.getElementById('email').value;
+        clientData.email = email;
+        console.log(clientData.email);
+      }
+
+
+      console.log((clientData.username));
       try {
          const response = await fetch(url, {
             method: 'POST',
-            headers: {'Content-Type':'application/json'},
+            headers: {'Content-Type':'application/json',
+            'Authorization':`Bearer ${token}`},
             body: JSON.stringify(clientData),
+            credentials: 'include',
          });
 
         if (!response.ok) throw new Error(`Error Message: ${response.status}`);
@@ -121,16 +135,21 @@ const fetchAndEnter = async(formButton, url) => {
          console.log('Success', data);
          window.location.href = data.redirectTo;
       } catch (err) {
-         console.error(`Error: ${err.message}`);
+         console.error(`Frontend says: ${err.message}`);
          alert(`Login Failed`);
       }
 
    });
 };
 
-document.addEventListener('DOMContentLoaded', ()=>{
-   fetchAndEnter('register-form-btn','http://localhost:3000/student/signup');
-   fetchAndEnter('login-form-btn','http://localhost:3000/student/login');
+document.addEventListener('DOMContentLoaded', async()=>{
+    try {
+        await fetchAndEnter('register-form-btn','http://localhost:3000/student/signup');
+        await fetchAndEnter('login-form-btn','http://localhost:3000/student/login');
+    } catch(err){
+        console.error('Pointless activity');
+    }
+
 });
     </script>
 </body>

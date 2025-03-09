@@ -1,19 +1,8 @@
 const express = require('express');
-const path = require('path');
 const router = express.Router();
-const app = express();
 const mongoose = require('mongoose');
-const connectedDatabase = require('../lib/db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
-app.use(express.json());
-app.use(express.static(path.join(__dirname + '/public')));
-app.set('views', path.join(__dirname + '/views'));
-
-// // testcase entries
-// const testData = require('../lib/testcases');
-// testData();
 
 router.get('/login', async(req, res)=>{
   res.render('login', { layout: null });

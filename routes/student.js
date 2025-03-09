@@ -1,51 +1,63 @@
 const express = require('express');
 const router = express.Router();
-const app = express();
-const path = require('path');
-// const mongoose = require('mongoose');
-const connectedDatabase = require('../lib/db');
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv').config();
 
-process.env.JWT 
-
-app.use(express.json());
-app.use(express.static(path.join(__dirname + '/public')));
-app.set('views', path.join(__dirname + '/views'));
+const dummyJwt = 'iH=l@_,@]Mi=xNHDlp{H^TcQFbtShF';
 
 const Student = require('../lib/models/student');
 const Course = require('../lib/models/course');
-const Teacher = require('../lib/models/course');
-
-// // testcase entries
-// const testData = require('../lib/testcases');
-// testData();
+const Teacher = require('../lib/models/teacher');
 
 async function authenticateUser(req, res, next){
-  const {email, password } = req.body;
-  
+  const { username, password } = req.body;
+  console.log('Authentication User Ran but not the async await');
+  // async won't run due to race conditions hence MongoNotConnectedError
   try{
-    const student = await Student.findOne({ email });
-    if (!student) return res.status(401).send('Invalid Credentials');
+    const student = await Student.findOne({ studentName: username });
+    if (!student) return res.status(401).send('Invalid username Credentials');
 
-    const studentPassword = await bcrypt.compare(password, student.password);
-    if (!studentPassword) return res.status(401).send('Invalid Credentials');
+    // TODO For debugging: comment out password checking
+    // const studentPassword = await bcrypt.compare(password, student.password);
+    // if (!studentPassword) return res.status(401).send('Invalid Credentials');
     
     req.user = student; // next middleware handler will have access
-    // generate a token using jwt sign with three parameters: an objectId, the secret key, initializer
-    const token = jwt.sign({ studentId: student._id}, process.env.JWT, { expiresIn: '24h' });
+    
+    const token = jwt.sign({student: student._id }, process.env.JWT || dummyJwt, { expiresIn: '24h' });
     // res.cookie() to the client frontend cookies using an object
-    res.cookie('token', token, {httpOnly: true, secure: false});
-    return res.json({success: true, redirectTo: '/student'});
+    res.cookie('token', token, {httpOnly: true, secure: false}); // does not disrupt middleware
+    
+    next();
+    // return res.json({success: true, redirectTo: '/student'});
   } catch(err) {
-    return res.status(401).send('Invalid Credentials');
+    console.log('Async got caught');
+    return res.status(401).send('Invalid overall Credentials');
   }
 }
 
 async function validateJwt(req, res, next){
-  const token = req.cookies.token; // Attain the cookie that has the token
+  // const authHeader = req.headers['Authorization'];
+  
+  // if (authHeader) {
+  //   const accessToken = authHeader.split(' ')[1];
+  // } 
 
+  // try {
+  //   const decoded = jwt.verify(accessToken, process.env.JWT || dummyJwt);
+  //   const student = await Student.findById(decoded.studentId).select('-password');
+  //   if (!student) {
+  //     return res.status(403).json({ success: false, msg: 'Invalid Token'});
+  //   }
+  //   req.user = student;
+  //   next();
+
+  // } catch(error){
+  //   res.status(401).json({msg: 'Invalid Token'});
+  // }
+
+  const token = req.cookies.token; // Attain the cookie that has the token
+  console.log('Validate User Ran');
   if (!token) {
     return res.status(401).json({ msg: 'No token, Authorization denied'});
   }
@@ -85,27 +97,28 @@ router.post('/login', authenticateUser, async(req, res)=>{
 router.post('/signup', 
   async(req, res, next)=>{
   const { username, email, password } = req.body;
-
+    console.log('1st Middleware in /signup ran');
   try {
     const findEmail = await Student.findOne({email});
     if(findEmail) {
-     return res.status(400).send('Invalid Credentials');
+     return res.status(400).send('User already Exists');
     }
 
     const salt = await bcrypt.genSalt(10); // increases the randomness
     const hashedPassword = await bcrypt.hash(password, salt);
-    const newStudent = new Student({username, email, password: hashedPassword});
+    const newStudent = new Student({studentName: username, email, password: hashedPassword});
     await newStudent.save();
 
     req.body.email = email;
     req.body.password = password;
+
     next();
   } catch (err) {
     console.error(`Error: ${err}`);
-    res.status(500).send('Server Error');
+    res.status(500).send('Server Error in /signup');
   }
-
 }, 
+
 authenticateUser, 
 async(req, res)=>{
 
