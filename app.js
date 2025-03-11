@@ -7,7 +7,11 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const connectedDB = require('./lib/db');
 const handlebars = require('express-handlebars').create({defaultLayout: 'admin'});
- 
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
 app.use(express.json());
 app.use(cookieParser());
 app.engine('handlebars', handlebars.engine);
@@ -87,19 +91,38 @@ app.use((req, res)=>{
   res.status(404).render('error');
 });
 
-const startServer = async() =>{
-  await connectedDB().then(()=>{
+const startServer = async() => {
+  try {
+    // Make sure we wait for the database connection to be established
+    const db = await connectedDB();
+    
+    // Only proceed if we have a connection
+    if (db.readyState !== 1) {
+      throw new Error('Database connection not established');
+    }
+    
     console.log("Database connected successfully");
-  });
-  testData();
-
-  // const PORT = app.get('port');
-  app.listen(3000, ()=>{
-    console.log(`Server started on http://localhost:3000 press ctrl + c to exit`);
-  });
-
+    
+    // Now that we're connected, we can seed the database
+    // This won't close the connection anymore (removed from testData.js)
+    await testData();
+    
+    const PORT = app.get('port');
+    app.listen(PORT, () => {
+      console.log(`Server started on http://localhost:${PORT} press ctrl + c to exit`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
 };
 
 startServer();
+
+// Add this to handle unhandled promise rejections
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  // Don't exit the process, just log it
+});
 
 

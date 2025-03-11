@@ -4,60 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/login.css">
-    {{!-- <script defer src="/javascripts/login.js"></script> --}}
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-
     <title>Student Login</title>
 </head>
 <body class="roboto-font">
     <div class="container">
         <div class="form-box login">
-            <form action="http://localhost:3000/student/login" method="post" id="login-form">
+            <form id="login-form">
                 <h1>Login</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="Username" required id="username">
+                    <input type="text" name="username" placeholder="Username" required>
                     <box-icon name='user'></box-icon>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Password" required id="password">
-                    <box-icon name='lock' type='solid' ></box-icon>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <box-icon name='lock' type='solid'></box-icon>
                 </div>
                 <div class="forgot-link">
                     <a href="#">Forgot Password?</a>
                 </div>
 
-                <button type="submit" class="btn student-btn" id="login-form-btn">Login</button>
+                <button type="submit" class="btn student-btn">Login</button>
                 <p>or login with social platforms</p>
                 <div class="social-icons">
                     <box-icon type='logo' name='google'></box-icon>
-                    <box-icon name='facebook' type='logo' ></box-icon>
+                    <box-icon name='facebook' type='logo'></box-icon>
                     <box-icon type='logo' name='github'></box-icon>
                     <box-icon type='logo' name='linkedin'></box-icon>
                 </div>
-
             </form>
         </div>
 
         <div class="form-box register">
-            <form action="http://localhost:3000/student/signup" method="post" id="register-form">
+            <form id="register-form">
                 <h1>Register</h1>
                 <div class="input-box">
-                    <input type="text" placeholder="Username" required id="username">
-                    <box-icon type='solid' name='envelope'></box-icon>
-                </div>
-                <div class="input-box">
-                    <input type="email" placeholder="Email" required id="email">
+                    <input type="text" name="username" placeholder="Username" required>
                     <box-icon name='user'></box-icon>
                 </div>
                 <div class="input-box">
-                    <input type="password" placeholder="Password" required id="password">
-                    <box-icon name='lock' type='solid' ></box-icon>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <box-icon type='solid' name='envelope'></box-icon>
                 </div>
-                <button type="submit" class="btn student-btn" id="register-form-btn">Register</button>
+                <div class="input-box">
+                    <input type="password" name="password" placeholder="Password" required>
+                    <box-icon name='lock' type='solid'></box-icon>
+                </div>
+                <button type="submit" class="btn student-btn">Register</button>
                 <p>or login with social platforms</p>
                 <div class="social-icons">
                     <box-icon type='logo' name='google'></box-icon>
-                    <box-icon name='facebook' type='logo' ></box-icon>
+                    <box-icon name='facebook' type='logo'></box-icon>
                     <box-icon type='logo' name='github'></box-icon>
                     <box-icon type='logo' name='linkedin'></box-icon>
                 </div>
@@ -76,11 +73,9 @@
                 <button class="btn login-btn student-btn">Login</button>
             </div>
         </div>
-        
     </div>
-    <script defer>
-// Frontend
-
+    <script>
+// Frontend toggle functionality
 const container = document.querySelector('.container');
 const registerBtn = document.querySelector('.register-btn');
 const loginBtn = document.querySelector('.login-btn');
@@ -93,63 +88,53 @@ loginBtn.addEventListener('click', () => {
     container.classList.remove('active');
 });
 
-// Backend
-
-const fetchAndEnter = async(formButton, url) => {
-   document.getElementById(formButton).addEventListener('click', async(e) =>{
-      e.preventDefault();
-
-      //const email = document.getElementById('email')?.value || '';
-      //const usernameField = document.getElementById('username');
-      //const username = usernameField ? usernameField.value : null;
-      //const password = document.getElementById('password')?.value || null;
-      
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-
-      const clientData = { username, password };
-      //const clientData = { email, password };
-      //if (username) clientData.username = username;
-
-      if (url === 'http://localhost:3000/student/signup') {
-        const email = document.getElementById('email').value;
-        clientData.email = email;
-        console.log(clientData.email);
-      }
-
-
-      console.log((clientData.username));
-      try {
-         const response = await fetch(url, {
-            method: 'POST',
-            headers: {'Content-Type':'application/json',
-            'Authorization':`Bearer ${token}`},
-            body: JSON.stringify(clientData),
-            credentials: 'include',
-         });
-
-        if (!response.ok) throw new Error(`Error Message: ${response.status}`);
-
-         const data = await response.json();
-         //alert(`Login Successful, Welcome To NUST`);
-         console.log('Success', data);
-         window.location.href = data.redirectTo;
-      } catch (err) {
-         console.error(`Frontend says: ${err.message}`);
-         alert(`Login Failed`);
-      }
-
-   });
+// Backend communication
+const handleFormSubmit = async (formId, url) => {
+    const form = document.getElementById(formId);
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(form);
+        const clientData = {};
+        
+        // Convert FormData to JSON
+        for (let [key, value] of formData.entries()) {
+            clientData[key] = value;
+        }
+        
+        console.log('Submitting form data:', clientData);
+        
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(clientData),
+                credentials: 'include'
+            });
+            
+            const data = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(data.message || `Error: ${response.status}`);
+            }
+            
+            console.log('Success', data);
+            if (data.redirectTo) {
+                window.location.href = data.redirectTo;
+            }
+        } catch (err) {
+            console.error(`Request failed: ${err.message}`);
+            alert(`Operation failed: ${err.message}`);
+        }
+    });
 };
 
-document.addEventListener('DOMContentLoaded', async()=>{
-    try {
-        await fetchAndEnter('register-form-btn','http://localhost:3000/student/signup');
-        await fetchAndEnter('login-form-btn','http://localhost:3000/student/login');
-    } catch(err){
-        console.error('Pointless activity');
-    }
-
+document.addEventListener('DOMContentLoaded', () => {
+    handleFormSubmit('login-form', 'http://localhost:3000/student/login');
+    handleFormSubmit('register-form', 'http://localhost:3000/student/signup');
 });
     </script>
 </body>

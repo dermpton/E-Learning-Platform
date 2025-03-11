@@ -4,6 +4,28 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+
+const Student = require('../lib/models/student');
+const Teacher = require('../lib/models/teacher');
+const Submission = require('../lib/models/submission');
+const Assignment = require('../lib/models/assignment');
+
+
+async function authenticateUser(req, res, next){
+  const { username, password } = req.body;
+  console.log('Authentication User Running...'); 
+
+  try {
+    const teacher = Teacher.findOne({ teachersName: username});
+    if (!teacher) return res.status(401).json({success: false, msg: 'Invalid Username Credentials'});
+    
+    const teacherPassword = await bcrypt.compare(password, teacher.password);
+    if (!teacherPassword) return res.status(401).json({success: false, msg: 'Invalid Credentials'});
+  } catch(error) {
+
+  }
+};  
+
 router.get('/login', async(req, res)=>{
   res.render('login', { layout: null });
 });
