@@ -114,7 +114,7 @@ router.post('/signup', async(req, res, next)=>{
       secure: process.env.NODE_ENV === 'production',
     });
 
-    res.json({ success: true, redirectTo: '/' });
+    res.json({ success: true, redirectTo: '/admin' });
   } catch (error) {
     console.error('Signup Error: ', error);
     return res.status(500).json({ success: false, msg: 'Server error during signup'});

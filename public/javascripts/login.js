@@ -49,7 +49,7 @@ const handleFormSubmit = async(formId, url) =>{
    });
 };
 
-document.addEventListener('DOMContentLoaded', ()=>{
+document.addEventListener('DOMContentLoaded', ()=> {
    handleFormSubmit('login-form', 'http://localhost:3000/admin/login');
    handleFormSubmit('register-form', 'http://localhost:3000/admin/signup');
 })
