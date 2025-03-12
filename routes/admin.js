@@ -9,7 +9,7 @@ const Student = require('../lib/models/student');
 const Teacher = require('../lib/models/teacher');
 const Submission = require('../lib/models/submission');
 const Assignment = require('../lib/models/assignment');
-
+const Course = require('../lib/models/course');
 
 const dummyJwt = 'iH=l@_,@]Mi=xNHDlp{H^TcQFbtShF';
 
@@ -160,20 +160,21 @@ router.get('/', validateJwt , async(req, res)=>{
 // });
 
 router.get('/students', validateJwt , async(req,res)=>{
+  const {teachersName, systemRole} = req.staff;
   const data = {
-    teachersName: "John Doe",
-    systemRole: "Lecturer",
-    studentTotal: 130,
+    teachersName,
+    systemRole,
+    studentTotal: 8,
     courseName: "Software Project Management",
-    getStudents: 130,
-    adminSchool: "National University of Science & Technology",
-    studentName: "Bob Ann",
+    getStudents: 3,
+    adminSchool,
+    studentName: ["Bob Ann", "John Smith", "Action Bronson"],
     layout: null,
   };
   
   res.render('students',data,(err, html) => {
     if (err) {
-      res.status(500).send(`Uh oh: ${err.message}`);
+      res.status(500).send(`Error: ${err.message}`);
     } else {
       res.json(html);
       
@@ -181,16 +182,18 @@ router.get('/students', validateJwt , async(req,res)=>{
 })});
 
 router.get('/teacher', validateJwt , async(req, res)=> {
+  const { teachersName, systemRole, announcements, feedback, adminSchool, email, initialDate, lastLogout } = req.staff;
+
   const data = {
-    teachersName: "John Doe",
-    email: "johndoe@gmail.com",
-    systemRole: "Lecturer",
+    teachersName,
+    email,
+    systemRole,
     studentTotal: 130,
     courseName: "Software Project Management",
     getStudents: 130,
-    adminSchool: "National University of Science & Technology",
+    adminSchool,
     getCourseIndex: 5,
-    initialDate: new Date(),
+    initialDate,
     lastLogout: "N/A",
     layout: null,
   };
@@ -240,6 +243,60 @@ router.get('/logout', validateJwt , (req,res)=>{
     }
   });
 });
+
+// TODO CREATE ASSIGNMENTS, COURSE-ENROLLMENT/CREATION
+
+router.post('/create-assignment', validateJwt, async(req, res) =>{
+  try {
+    const { title, courseName, description, dateIssued, courseCode, dueDate, getTime } = req.body;
+    
+    const assignment = new Assignment({
+      title,
+      courseCode,
+      courseName,
+      description,
+      dateIssued,
+      dueDate,
+      getTime,
+    });
+
+    await assignment.save();
+
+    res.status(200).json({
+      success: true, 
+      message: 'Assignment created successfully',
+      assignment,
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.post('/create-course', validateJwt , async(req, res)=>{
+  try {
+    const { courseName, description, courseCode, instructorId } = req.body;
+    const course = new Course({
+      courseName,
+      description,
+      courseCode,
+      instructorId: req.staff._id, // trying to use the ObjectId from teacher model
+    });
+
+    await course.save();
+    res.status(200).json({
+      success: true,
+      message: 'Course created successfully',
+      course,
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
+// TODO CREATE ASSIGNMENTS, COURSE-ENROLLMENT/CREATION
 
 
 router.get('/add', validateJwt , async(req, res) => {

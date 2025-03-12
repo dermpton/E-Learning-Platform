@@ -9,6 +9,11 @@ const dummyJwt = 'iH=l@_,@]Mi=xNHDlp{H^TcQFbtShF';
 const Student = require('../lib/models/student');
 const Course = require('../lib/models/course');
 const Teacher = require('../lib/models/teacher');
+const Assignment = require('../lib/models/assignment');
+const Submission = require('../lib/models/submission');
+const multer = require('multer');
+const path = require('path');
+
 
 async function authenticateUser(req, res, next){
   const { username, password } = req.body;
@@ -232,6 +237,105 @@ router.get('/add', validateJwt, async(req, res)=>{
     }
   });
 });
+
+// TODO: NONE ROUTE RELATED LOGIC 
+
+// storage area
+const storage = multer.diskStorage({
+    destination: async(req, file, cb)=>{
+        try{
+            cb(null, `uploads/assignments/${ await Teacher.findOne({email})}/${ await Course.findOne({instructor})}/`);
+        } catch(err) {
+            console.error(`Error: `, err.message);
+            return; // for now
+        }
+    },
+    filename: async(req, file, cb)=>{
+        try {
+            await cb(null, `${Date.now()}-${file.originalname}`);
+        } catch (error) {
+            console.error(`Error: `, err.message);
+            return; // for now
+        }
+    }
+});
+
+const upload = multer({
+    storage, 
+    limits: {
+        fileSize: 10 * 1024* 1024, // 10MB limit
+        files: 2,
+    },
+    fileFilter: (req, file, cb)=>{
+        const filetypes = /jpeg|jpg|png|gif|pdf|doc|docx|txt|ppt|pptx|xls|xlsx/;
+        const mimetype = filetypes.test(file.mimetype);
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+        if ( mimetype && extname) {
+            return cb(null, true);
+        }
+        cb (new Error('Invalid file format!'));
+    }
+});
+
+
+// TODO: EOF NONE ROUTE RELATED LOGIC
+
+router.post('/submit-assignment/:assignmentId', 
+  validateJwt, 
+  upload.single('assignment'), 
+  async (req, res) => {
+    const { feedback, submissionDate, instructor, studentId } = req.user;
+    try {
+      if (!req.file){
+        return res.status(400).json({error: 'No file uploaded'});
+      }
+
+      const submission = new Submission({
+        feedback,
+        submissionDate,
+        filePath: req.file.path,
+        studentId,
+
+      });
+       
+      await submission.save();
+
+      res.status(200).json({
+        success: true, 
+        message: 'Assignment submitted successfully',
+        submission,
+      });
+
+    } catch (error) {
+      res.status(500).json({error: error.message});
+    }
+    
+});
+
+router.post('/enroll-course', validateJwt , async(req, res)=>{
+  try {
+    const { courseCode } = req.body;
+    const studentId = req.user._id; 
+
+    const course = await Course.findOne({ courseCode });
+    if(!course) res.status(404).json({error: 'Invalid Course Code'})
+  
+    if (course.students.includes(studentId)) return res.status(400).json({ error: 'Already enrolled in this course' });
+    
+    course.students.push(studentId);
+    await course.save();
+
+    res.status(200).json({
+      success: true, 
+      message: 'Successfully enrolled in course',
+      course,
+    });
+
+  } catch (error) {
+    
+  }
+})
 
 router.get('/course/:course_code', validateJwt, async(req, res)=>{
   const courseCode = req.params.course_code;

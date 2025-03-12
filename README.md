@@ -4,7 +4,7 @@ A mock version of Google Classroom, that emphasizes local storage and JWT author
 
 ## Description
 
-The E-Learning Platform provides an opportunity for students to partake in distance learning, 
+The E-Learning Platform provides an opportunity for students to partake in distance learning,
 students are not limited to their universities courses can instead register for any course of their choice, provided they have a valid course code. However depending on the instructor, the issuing of the course code may require compensation, the E-Learning Platform holds no part in this. Students and teacher alike can become tutors or instructors free of charge and teacher their own lessons. Storage is geared at an individuals device, and is dependent on how much disk storage is available.
 
 ## Installation
@@ -41,7 +41,7 @@ dermpton.
 
 MongoDB, Express.js, Node.js, Handle-bars3 as the templating Engine
 
-# License:
+# License
 
 MIT License
 
