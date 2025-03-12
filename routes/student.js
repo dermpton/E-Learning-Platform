@@ -18,9 +18,8 @@ async function authenticateUser(req, res, next){
     const student = await Student.findOne({ studentName: username });
     if (!student) return res.status(401).json({ success: false, message: 'Invalid username Credentials' });
 
-    // Uncomment when ready to check passwords
-    // const studentPassword = await bcrypt.compare(password, student.password);
-    // if (!studentPassword) return res.status(401).json({ success: false, message: 'Invalid password Credentials' });
+    const studentPassword = await bcrypt.compare(password, student.password);
+    if (!studentPassword) return res.status(401).json({ success: false, message: 'Invalid password Credentials' });
     
     req.user = student; // next middleware handler will have access
     
@@ -157,7 +156,7 @@ router.post('/signup', async(req, res, next) => {
       email, 
       password: hashedPassword,
       studentCount: 1, // Ensure required fields are set
-      adminSchool: 'Default School',
+      adminSchool: 'National University of Science & Technology',
       announcements: [],
       feedback: []
     });

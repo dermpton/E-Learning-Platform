@@ -14,42 +14,42 @@ loginBtn.addEventListener('click', () => {
 
 
 // Backend 
-
-const fetchAndEnter = async(formButton, url) => {
-   document.getElementById(formButton).addEventListener('click', async(e) =>{
+const handleFormSubmit = async(formId, url) =>{
+   const form = document.getElementById(formId);
+   form.addEventListener('submit', async(e)=> {
       e.preventDefault();
 
-      const email = document.getElementById('email')?.value || '';
-      const usernameField = document.getElementById('username');
-      const username = usernameField ? usernameField.value : null;
-      const password = document.getElementById('password')?.value || null;
+      const formData = new FormData(form);
+      const clientData = {};
 
-      const clientData = { email,password };
-      if (username) clientData.username = username;
+      for (let [key, value] of formData.entries()){
+         clientData[key] = value;
+      }
+
+      console.log('Submitting form data: ', clientData);
 
       try {
          const response = await fetch(url, {
             method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify(clientData),
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(clientData), 
             credentials: 'include',
          });
 
-         if (!response.ok) throw new Error(`Error Message: ${response.status}`);
-
          const data = await response.json();
-         alert(`Login Successful, Welcome ${clientData.username}`);
+         if(!response.ok) throw new Error(data.message || `Error: ${response.status}`);
+
          console.log('Success', data);
+         if(data.redirectTo) window.location.href = data.redirectTo;
 
-      } catch (err) {
-         console.error(`Error: ${err.message}`);
-         alert(`Login Failed`);
+      } catch(err) {
+         console.error(`Request failed: ${err.message}`);
+         alert(`Operation failed: ${err.message}`);
       }
-
    });
 };
 
 document.addEventListener('DOMContentLoaded', ()=>{
-   fetchAndEnter('register-form-btn','http://localhost:3000/admin/signup');
-   fetchAndEnter('login-form-btn','http://localhost:3000/admin/login');
-});
+   handleFormSubmit('login-form', 'http://localhost:3000/admin/login');
+   handleFormSubmit('register-form', 'http://localhost:3000/admin/signup');
+})
