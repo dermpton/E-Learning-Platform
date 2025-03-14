@@ -58,7 +58,7 @@
             </div>
 
             <div class="bottom-pane">
-                <section class="dynamic-views"3>
+                <section class="dynamic-views">
                     <div id="content">
                         {{{ body }}}
                     </div>
@@ -72,5 +72,54 @@
         </div>
     </main>
 
+<script>
+// frontend 
+
+
+// backend
+const handleFormSubmission = async (formId, url)=>{
+    const form = document.getElementById(formId);
+
+    const formData = new FormData(form);
+    const studentData = {};
+
+    for (let [key, value] of formData.entries()) {
+        studentData[key] = value;
+    }
+
+    console.log('Details of Submission (Announcement/Material/Assignment):', studentData);
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(studentData),
+            credentials: 'include',
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) throw new Error(data.message || `Error: ${response.status}`);
+
+        console.log('Success', data);
+        if (data.redirectTo) window.location.href = data.redirectTo;
+
+    } catch(err){
+        console.error(`Request failed: ${err.message}`);
+        alert(`Operation failed: ${err.message}`);
+
+    } 
+
+}; 
+
+ document.addEventListener('DOMContentLoaded', () => {
+    handleFormSubmission('assignment-form', 'http://localhost:3000/admin/create-assingment');
+    handleFormSubmission('material-form', 'http://localhost:3000/admin/create-material');
+    handleFormSubmission('announcement-form', 'http://localhost:3000/admin/create-announcement');
+ });
+
+</script>
 </body>
 </html>

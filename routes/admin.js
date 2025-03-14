@@ -13,6 +13,8 @@ const Course = require('../lib/models/course');
 
 const dummyJwt = 'iH=l@_,@]Mi=xNHDlp{H^TcQFbtShF';
 
+
+
 async function authenticateInstructor(req, res, next){
   const { username, password } = req.body;
   console.log('Authentication User Running...'); 
@@ -271,6 +273,107 @@ router.post('/create-assignment', validateJwt, async(req, res) =>{
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+router.get('/create-assignment', validateJwt,  async (req, res) => {
+  
+  const data = {
+    layout: null,
+
+  };
+
+  res.render('/add', data, (err, html)=>{
+    if (err) {
+      res.status(500).send(`Error: ${err.message}`);
+    } else {
+      res.json(html);
+    }
+  });
+
+});
+
+router.post('/create-announcement', validateJwt, async(req, res) =>{
+  try {
+    const { title, courseName, description, dateIssued, courseCode, getTime } = req.body;
+    
+    const course = await Course.findOne({ instructorId: req.staff._id });
+    if (!course) res.status(404).json({ error: 'Invalid Teacher'});
+    
+    const teacher = await Teacher.findOne({ teachersName: req.staff.teachersName });
+    if (!teacher) res.status(404).json({ error: 'Invalid Teacher '});
+
+    teacher.announcements.push(`Title: ${title}, Course: ${courseName}, Description: ${description}, Date: ${dateIssued}, Course Code: ${courseCode}, Time: ${getTime}`);
+    await teacher.save();
+
+    res.status(200).json({
+      success: true, 
+      message: 'Announcement created successfully',
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get('/create-announcement', validateJwt,  async (req, res) => {
+  
+  const data = {
+    layout: null,
+
+  };
+
+  res.render('/add', data, (err, html)=>{
+    if (err) {
+      res.status(500).send(`Error: ${err.message}`);
+    } else {
+      res.json(html);
+    }
+  });
+
+});
+
+router.post('/create-material', validateJwt, upload.single(), async(req, res) =>{
+  try {
+    const { title, courseName, description, dateIssued, courseCode, dueDate, getTime } = req.body;
+    
+    const assignment = new Assignment({
+      title,
+      courseCode,
+      courseName,
+      description,
+      dateIssued,
+      dueDate,
+      getTime,
+    });
+
+    await assignment.save();
+
+    res.status(200).json({
+      success: true, 
+      message: 'Assignment created successfully',
+      assignment,
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.get('/create-material', validateJwt,  async (req, res) => {
+  
+  const data = {
+    layout: null,
+
+  };
+
+  res.render('/add', data, (err, html)=>{
+    if (err) {
+      res.status(500).send(`Error: ${err.message}`);
+    } else {
+      res.json(html);
+    }
+  });
+
 });
 
 router.post('/create-course', validateJwt , async(req, res)=>{
